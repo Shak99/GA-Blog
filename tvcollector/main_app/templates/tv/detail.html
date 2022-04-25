@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Show Details</h1>
+
+<div class="card">
+    <div class="card-content">
+        <span class="card-title">{{tvlist.title}}</span>
+        <p>Year: {{tvlist.year}}</p>
+        <p>Genre: {{tvlist.genre}}</p>
+        <p>Description: {{tvlist.description}}</p>
+        {%if tvlist.status == 'Completed!'%}
+            <p style="font-weight:bold; color:green">Status: {{tvlist.status}}</p>
+        {%elif tvlist.status == 'Still working on it...'%}
+            <p style="font-weight:bold; color:orange">Status: {{tvlist.status}}</p>
+        {%elif tvlist.status == "Didn't Finish, Lost Cause"%}
+            <p style="font-weight:bold; color:red">Status: {{tvlist.status}}</p>
+        {%else%}
+            <p style="font-weight:bold; color:black">Status: {{tvlist.status}}</p>
+        {%endif%}
+
+    </div>
+</div>
+
+{% endblock%}

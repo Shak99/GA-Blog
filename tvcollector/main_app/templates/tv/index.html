@@ -3,8 +3,9 @@
 
 <h1>TV Show List</h1>
 
-{% for shows in show %}
+{% for shows in tvlist %}
     <div class="card">
+        <a href="{% url 'detail' shows.id %}">
         <div class="card-content">
             <span class="card-title" style="font-weight:bold"> {{shows.title}}</span>
             <p>Year: {{shows.year}}</p>
@@ -18,6 +19,7 @@
                 <p style="font-weight:bold; color:red">Status: {{shows.status}}</p>
             {%endif%}
         </div>
+        </a>
     </div>
 {%endfor%}
 
