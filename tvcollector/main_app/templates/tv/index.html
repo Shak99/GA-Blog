@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>TV Show List</h1>
+
+{% for shows in show %}
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title" style="font-weight:bold"> {{shows.title}}</span>
+            <p>Year: {{shows.year}}</p>
+            <p>Genre: {{shows.genre}}</p>
+            <p>Description: {{shows.description}}</p>
+            {%if shows.status == 'Completed!'%}
+                <p style="font-weight:bold; color:green">Status: {{shows.status}}</p>
+            {%elif shows.status == 'Still working on it...'%}
+                <p style="font-weight:bold; color:orange">Status: {{shows.status}}</p>
+            {%else%}
+                <p style="font-weight:bold; color:red">Status: {{shows.status}}</p>
+            {%endif%}
+        </div>
+    </div>
+{%endfor%}
+
+{%endblock%}
