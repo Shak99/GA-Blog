@@ -8,6 +8,7 @@
         <span class="card-title">{{tvlist.title}}</span>
         <p>Year: {{tvlist.year}}</p>
         <p>Genre: {{tvlist.genre}}</p>
+        <p>Number of Seasons: {{tvlist.seasons}} </p>
         <p>Description: {{tvlist.description}}</p>
         {%if tvlist.status == 'Completed!'%}
             <p style="font-weight:bold; color:green">Status: {{tvlist.status}}</p>
@@ -20,6 +21,27 @@
         {%endif%}
 
     </div>
+    <div class="card-action">
+        <a href="{% url 'tv_update' tvlist.id %}">Edit</a>
+        <a href="{% url 'tv_delete' tvlist.id %}">Delete</a>
+    </div>
 </div>
 
-{% endblock%}
+<div class="col s6">
+    <table class="striped">
+      <thead>
+        <tr><th>Name:</th><th>Premiere Date</th><th>Country of Origin</th></tr>
+      </thead>
+      <tbody>
+        {% for studio in cat.Studio_set.all %}
+          <tr>
+            <td>{{studio.name}}</td>
+            <td>{{studio.get_studio_display}}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock %}
