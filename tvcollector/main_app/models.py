@@ -4,6 +4,27 @@ from django.db import models
 from django.urls import reverse
 
 
+
+HOST_CHOICES = (
+    ('Web', 'Web Platform'),
+    ('Cable', 'Cable Television')
+)
+
+class TvHost(models.Model):
+    name = models.CharField(max_length=250)
+    host_type = models.CharField(
+        max_length=250,
+        choices = HOST_CHOICES,
+        default = HOST_CHOICES[0][0]
+    )
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('tvhost_detail', kwargs={'pk': self.id})
+
+
+
 # Create your models here.
 class Tvlist(models.Model):
     title = models.CharField(max_length=250)
@@ -12,6 +33,7 @@ class Tvlist(models.Model):
     seasons = models.IntegerField()
     description = models.CharField(max_length=350)
     status = models.CharField(max_length=250)
+    tv_hosts = models.ManyToManyField(TvHost) 
     
     # def tv_index(request):
     #     shows = Tvlist.objects.all()
@@ -23,7 +45,7 @@ class Tvlist(models.Model):
     def get_absolute_url(self):
         return reverse('detail', kwargs={'tv_id': self.id})
 
-STUDIOS = (
+NAMES = (
     ('A', 'Universal Studios'),
     ('B', 'Paramount'),
     ('C', 'Netflix'),
@@ -36,13 +58,15 @@ STUDIOS = (
 class Studio(models.Model):
     name = models.CharField(
         max_length=250,
-        choices = STUDIOS,
-        default = STUDIOS[0][0]
+        choices = NAMES,
+        default = NAMES[0][0]
         )
     prem_date = models.DateField('Premiere Date')
     country_origin = models.CharField(max_length=250)
-    show = models.ForeignKey(Tvlist, on_delete=models.CASCADE)
+    tv = models.ForeignKey(Tvlist, on_delete=models.CASCADE)
     
     def __str__(self):
-        return f"{self.get_Studio_display()} premiered this show in {self.country_origin} on {self.prem_date}"
+        return f"{self.get_name_display()} premiered this show in {self.country_origin} on {self.prem_date}"
+    
+    
     

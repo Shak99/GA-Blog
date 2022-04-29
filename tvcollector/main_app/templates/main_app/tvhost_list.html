@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Platform List</h1>
+
+{% for tvhost in tvhost_list %}
+  <a href="{% url 'tvhost_detail' tvhost.id %}">
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title">{{ tvhost.name }}</span>
+            <p>Type: {{ tvhost.host_type }}</p>
+        </div>
+    </div>
+  </a>
+{% endfor %}
+
+{% endblock %}
